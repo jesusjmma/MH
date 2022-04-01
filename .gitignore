@@ -1,0 +1,10 @@
+*.pdf
+*.ppt
+*.xls
+*.xlsx
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
