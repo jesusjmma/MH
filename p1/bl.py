@@ -87,9 +87,6 @@ def main(file, myseed):
         matrix[int(line[0])][int(line[1])] = float(line[2])
         matrix[int(line[1])][int(line[0])] = float(line[2])
 
-    for i in range(0, n):
-        matrix[i][i] = 0
-
     sol = set(sample(range(n),m))
     sums = [None] * n
     remaining = set(range(n)) - sol
