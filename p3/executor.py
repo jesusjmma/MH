@@ -2,7 +2,7 @@ from os import listdir
 from pandas import read_excel, DataFrame, concat
 from time import process_time_ns
 from sys import argv
-import es, bmb
+import es, bmb, ils, ils_es
 
 
 def main(algorithm):
@@ -33,6 +33,10 @@ def main(algorithm):
                 disp = es.main(file,i)
             elif algorithm == 'bmb':
                 disp = bmb.main(file,i)
+            elif algorithm == 'ils':
+                disp = ils.main(file, i)
+            elif algorithm == 'ils_es':
+                disp = ils_es.main(file, i)
             else:
                 print("Mírate la documentación y aprende a escribir los parámetros correctamente")
                 return

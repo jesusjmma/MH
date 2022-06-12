@@ -143,7 +143,6 @@ def main(file, myseed):
         matrix[int(line[1])][int(line[0])] = float(line[2])
 
     sol, remaining, sums, cost = generate_sol(matrix,n,m)
-    i = 0
 
     best_sol = sol.copy()
     best_remaining = remaining.copy()
