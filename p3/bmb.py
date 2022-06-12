@@ -116,6 +116,8 @@ def bl(sol, remaining, sums, cost, matrix, maximum, minimum):
         improvement = cost - (maximum - minimum)
         cost = maximum - minimum
 
+        i += 1
+
     return sol, remaining, sums, cost
 
 def generate_sol(matrix,n,m):

@@ -11,16 +11,16 @@ def heur(n, remaining, myset, matrix, diff_sums):
             Elementos que aún están sin seleccionar.
         myset : set
             Elementos que ya están seleccionados
-        matrix : list[list[int]]
+        matrix : list[list[float]]
             Distancias entre elementos.
-        diff_sums : list[int]
+        diff_sums : list[float]
             Dispersión entre los elementos seleccionados.
 
         Returns
         -------
         int
             Nuevo elemento a ser añadido a la solución.
-        list[int]
+        list[float]
             Suma de distancias de cada elemento añadido en la solución al resto de elementos añadidos en la solución.
         int
             Dispersión de los elementos añadidos en la solución.
@@ -53,6 +53,20 @@ def heur(n, remaining, myset, matrix, diff_sums):
 
 
 def main(file, myseed):
+    """Función principal del programa que aplica el algoritmo greedy.
+
+        Parameters
+        ----------
+        file : string
+            Nombre del archivo del que obtener los datos.
+        myseed : int o string
+            Semilla para la librería random.
+
+        Returns
+        -------
+        float
+            Coste de la solución.
+    """
     seed(myseed)
 
     file = open('datos_MDD/' + file)
