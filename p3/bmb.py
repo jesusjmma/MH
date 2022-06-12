@@ -11,7 +11,7 @@ class Found(Exception):
 
 
 def heur(myset, remaining, matrix, sums, maximum, minimum):
-    """Función de búsqueda local que construye la solución buscando un vecino mejor al actual.
+    """Función que selecciona un elemento a quitar y uno a añadir a la solución actual para obtener un nuevo vecino.
 
         Parameters
         ----------
@@ -23,9 +23,9 @@ def heur(myset, remaining, matrix, sums, maximum, minimum):
             Distancias entre elementos.
         sums : list[int]
             Suma de las distancias de un nodo al resto de los que hay en la propuesta actual de solución.
-        max : int
+        maximum : int
             Mayor de las sumas de las distancias de un nodo al resto de los que hay en la propuesta actual de solución.
-        min : int
+        minimum : int
             Menor de las sumas de las distancias de un nodo al resto de los que hay en la propuesta actual de solución.
 
         Returns
@@ -38,7 +38,7 @@ def heur(myset, remaining, matrix, sums, maximum, minimum):
             Suma de distancias de cada elemento añadido en la solución al resto de elementos añadidos en la solución.
         int
             Dispersión de los elementos añadidos en la solución.
-        """
+    """
 
     average = (minimum+maximum)/2
     dist_sums = sums.copy()
@@ -71,6 +71,36 @@ def heur(myset, remaining, matrix, sums, maximum, minimum):
 
 
 def bl(sol, remaining, sums, cost, matrix, maximum, minimum):
+    """Función de búsqueda local que construye la solución buscando el mejor vecino del actual en un máximo de iteraciones.
+
+        Parameters
+        ----------
+        sol : set
+            Elementos que están seleccionados en la nueva propuesta de solución.
+        remaining : set
+            Elementos que están sin seleccionar en la nueva propuesta de solución.
+        sums : list[float]
+            Suma de las distancias de un nodo al resto de los que hay en la nueva propuesta de solución.
+        cost : float
+            Coste de la nueva propuesta de solución.
+        matrix : list[list[float]]
+            Distancias entre elementos.
+        maximum : float
+            Elemento más grande en la lista sums.
+        minimum : float
+            Elemento más pequeño en la lista sums.
+
+        Returns
+        -------
+        set
+            Elementos que están seleccionados en la nueva propuesta de solución.
+        set
+            Elementos que están sin seleccionar en la nueva propuesta de solución.
+        list[float]
+            Suma de las distancias de un nodo al resto de los que hay en la nueva propuesta de solución.
+        float
+            Coste de la nueva propuesta de solución.
+    """
     i = 0
     improvement = 1
     while i < 10000 and improvement > 0:
@@ -89,12 +119,16 @@ def bl(sol, remaining, sums, cost, matrix, maximum, minimum):
     return sol, remaining, sums, cost
 
 def generate_sol(matrix,n,m):
-    """Función de búsqueda local que construye la solución buscando un vecino mejor al actual.
+    """Función que genera aleatoriamente una nueva solución.
 
         Parameters
         ----------
-        matrix : list[list[int]]
+        matrix : list[list[float]]
             Distancias entre elementos.
+        n : int
+            Cantidad de elementos que hay en el problema.
+        m : int
+            Cantidad de elementos que se deben seleccionar para una solución del problema.
 
         Returns
         -------
@@ -102,7 +136,7 @@ def generate_sol(matrix,n,m):
             Elementos que están seleccionados en la nueva propuesta de solución.
         set
             Elementos que están sin seleccionar en la nueva propuesta de solución.
-        list[int]
+        list[float]
             Suma de las distancias de un nodo al resto de los que hay en la nueva propuesta de solución.
         float
             Coste de la nueva propuesta de solución.
@@ -124,6 +158,20 @@ def generate_sol(matrix,n,m):
 
 
 def main(file, myseed):
+    """Función principal del programa que aplica el algoritmo BMB.
+
+        Parameters
+        ----------
+        file : string
+            Nombre del archivo del que obtener los datos.
+        myseed : int o string
+            Semilla para la librería random.
+
+        Returns
+        -------
+        float
+            Coste de la solución.
+    """
     seed(myseed)
 
     file = open('datos_MDD/' + file)

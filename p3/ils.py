@@ -12,7 +12,7 @@ class Found(Exception):
 
 
 def heur(myset, remaining, matrix, sums, maximum, minimum):
-    """Función de búsqueda local que construye la solución buscando un vecino mejor al actual.
+    """Función que selecciona un elemento a quitar y uno a añadir a la solución actual para obtener un nuevo vecino.
 
         Parameters
         ----------
@@ -20,13 +20,13 @@ def heur(myset, remaining, matrix, sums, maximum, minimum):
             Elementos que están seleccionados en la propuesta de solución actual.
         remaining : set
             Elementos que están sin seleccionar en la propuesta de solución actual.
-        matrix : list[list[int]]
+        matrix : list[list[float]]
             Distancias entre elementos.
-        sums : list[int]
+        sums : list[float]
             Suma de las distancias de un nodo al resto de los que hay en la propuesta actual de solución.
-        max : int
+        maximum : int
             Mayor de las sumas de las distancias de un nodo al resto de los que hay en la propuesta actual de solución.
-        min : int
+        minimum : int
             Menor de las sumas de las distancias de un nodo al resto de los que hay en la propuesta actual de solución.
 
         Returns
@@ -73,6 +73,36 @@ def heur(myset, remaining, matrix, sums, maximum, minimum):
 
 
 def bl(sol, remaining, sums, cost, matrix, maximum, minimum):
+    """Función de búsqueda local que construye la solución buscando el mejor vecino del actual en un máximo de iteraciones.
+
+        Parameters
+        ----------
+        sol : set
+            Elementos que están seleccionados en la nueva propuesta de solución.
+        remaining : set
+            Elementos que están sin seleccionar en la nueva propuesta de solución.
+        sums : list[float]
+            Suma de las distancias de un nodo al resto de los que hay en la nueva propuesta de solución.
+        cost : float
+            Coste de la nueva propuesta de solución.
+        matrix : list[list[float]]
+            Distancias entre elementos.
+        maximum : float
+            Elemento más grande en la lista sums.
+        minimum : float
+            Elemento más pequeño en la lista sums.
+
+        Returns
+        -------
+        set
+            Elementos que están seleccionados en la nueva propuesta de solución.
+        set
+            Elementos que están sin seleccionar en la nueva propuesta de solución.
+        list[float]
+            Suma de las distancias de un nodo al resto de los que hay en la nueva propuesta de solución.
+        float
+            Coste de la nueva propuesta de solución.
+    """
     i = 0
     improvement = 1
     while i < 10000 and improvement > 0:
@@ -92,12 +122,16 @@ def bl(sol, remaining, sums, cost, matrix, maximum, minimum):
 
 
 def generate_sol(matrix, n, m):
-    """Función de búsqueda local que construye la solución buscando un vecino mejor al actual.
+    """Función que genera aleatoriamente una nueva solución.
 
         Parameters
         ----------
         matrix : list[list[int]]
             Distancias entre elementos.
+        n : int
+            Cantidad de elementos que hay en el problema.
+        m : int
+            Cantidad de elementos que se deben seleccionar para una solución del problema.
 
         Returns
         -------
@@ -127,7 +161,7 @@ def generate_sol(matrix, n, m):
 
 
 def mutation(sol, remaining, sums, matrix):
-    """Función que escoge varios elemento a añadir y varios a quitar y nos devuelve una nueva solución con todo lo necesario
+    """Función que escoge varios elementos a añadir y varios a quitar y nos devuelve una nueva solución con todo lo necesario.
 
         Parameters
         ----------
@@ -135,9 +169,9 @@ def mutation(sol, remaining, sums, matrix):
             Elementos que están seleccionados en la propuesta de solución actual.
         remaining : set
             Elementos que NO están seleccionados en la propuesta de solución actual.
-        sums : list[int]
+        sums : list[float]
             Suma de las distancias de un nodo al resto de los que hay en la propuesta actual de solución.
-        matrix : list[list[int]]
+        matrix : list[list[float]]
             Distancias entre elementos.
 
         Returns
@@ -146,7 +180,7 @@ def mutation(sol, remaining, sums, matrix):
             Elementos que están seleccionados en la nueva propuesta de solución.
         set
             Elementos que NO están seleccionados en la nueva propuesta de solución.
-        list[int]
+        list[float]
             Suma de distancias de cada elemento añadido en la nueva solución al resto de elementos añadidos en la nueva solución.
     """
     new_sol = sol.copy()
@@ -195,6 +229,20 @@ def mutation(sol, remaining, sums, matrix):
 
 
 def main(file, myseed):
+    """Función principal del programa que aplica el algoritmo ILS (versión BL).
+
+        Parameters
+        ----------
+        file : string
+            Nombre del archivo del que obtener los datos.
+        myseed : int o string
+            Semilla para la librería random.
+
+        Returns
+        -------
+        float
+            Coste de la solución.
+    """
     seed(myseed)
 
     file = open('datos_MDD/' + file)
@@ -234,7 +282,6 @@ def main(file, myseed):
             best_sums = sums.copy()
             best_cost = cost
 
-        sol, remaining, sums, cost = generate_sol(matrix, n, m)
 
     print(str(best_cost) + " - " + str(best_sol))
     return best_cost

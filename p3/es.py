@@ -12,9 +12,9 @@ def choose_sol(sol, remaining, sums, matrix):
             Elementos que están seleccionados en la propuesta de solución actual.
         remaining : set
             Elementos que NO están seleccionados en la propuesta de solución actual.
-        sums : list[int]
+        sums : list[float]
             Suma de las distancias de un nodo al resto de los que hay en la propuesta actual de solución.
-        matrix : list[list[int]]
+        matrix : list[list[float]]
             Distancias entre elementos.
 
         Returns
@@ -23,7 +23,7 @@ def choose_sol(sol, remaining, sums, matrix):
             Elementos que están seleccionados en la nueva propuesta de solución.
         set
             Elementos que NO están seleccionados en la nueva propuesta de solución.
-        list[int]
+        list[float]
             Suma de distancias de cada elemento añadido en la nueva solución al resto de elementos añadidos en la nueva solución.
     """
     new_sol = sol.copy()
@@ -54,6 +54,20 @@ def choose_sol(sol, remaining, sums, matrix):
 
 
 def main(file, myseed):
+    """Función principal del programa que aplica el algoritmo ES.
+
+        Parameters
+        ----------
+        file : string
+            Nombre del archivo del que obtener los datos.
+        myseed : int o string
+            Semilla para la librería random.
+
+        Returns
+        -------
+        float
+            Coste de la solución.
+    """
     seed(myseed)
 
     file = open('datos_MDD/' + file)
