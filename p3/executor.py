@@ -2,7 +2,7 @@ from os import listdir
 from pandas import read_excel, DataFrame, concat
 from time import process_time_ns
 from sys import argv
-import es
+import es, bmb
 
 
 def main(algorithm):
@@ -26,9 +26,16 @@ def main(algorithm):
         time_start={}
         time_end={}
         time=[]
+        print(file)
         for i in range(5):
             time_start[i] = process_time_ns()
-            disp = es.main(file,i) if algorithm == 'es' else return 1
+            if algorithm == 'es':
+                disp = es.main(file,i)
+            elif algorithm == 'bmb':
+                disp = bmb.main(file,i)
+            else:
+                print("Mírate la documentación y aprende a escribir los parámetros correctamente")
+                return
             time_end[i] = process_time_ns()
             time.append(time_end[i]-time_start[i])
             if disp != 0:

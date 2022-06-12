@@ -76,7 +76,7 @@ def main(file, myseed):
     doc = file.readlines()
 
     n = int(doc[0].split()[0])  # Elementos totales
-    m = int(doc[0].split()[1s])  # Elementos a escoger
+    m = int(doc[0].split()[1])  # Elementos a escoger
 
     matrix = [None] * n
     for i in range(n):
