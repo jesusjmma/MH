@@ -5,7 +5,7 @@ from sys import argv
 import woa
 
 
-def main(algorithm):
+def main():
     total_time_start = process_time_ns()
 
     perfect_timing = {}
@@ -29,17 +29,7 @@ def main(algorithm):
         print(file)
         for i in range(5):
             time_start[i] = process_time_ns()
-            if algorithm == 'es':
-                disp = es.main(file,i)
-            elif algorithm == 'bmb':
-                disp = bmb.main(file,i)
-            elif algorithm == 'ils':
-                disp = ils.main(file, i)
-            elif algorithm == 'ils_es':
-                disp = ils_es.main(file, i)
-            else:
-                print("Mírate la documentación y aprende a escribir los parámetros correctamente")
-                return
+            disp = woa.main(file,i)
             time_end[i] = process_time_ns()
             time.append(time_end[i]-time_start[i])
             if disp != 0:
@@ -69,4 +59,4 @@ def main(algorithm):
     print(str(total_time/1000000000) + ' segs.')
 
 if __name__ == "__main__":
-    main(argv[1])
+    main()

@@ -107,7 +107,7 @@ def main(file, myseed):
     max_vecinos = 10*n
     max_exitos = n
     M = ceil(100000/max_vecinos)
-    beta = (T_0-T_f)/(M*T_0*T_f)
+    x = (T_0-T_f)/(M*T_0*T_f)
     T_k = T_0
 
     best_sol = sol.copy()

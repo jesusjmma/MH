@@ -14,4 +14,4 @@ cdef extern from "cec2014_func.cpp":
 @cython.boundscheck(False)
 @cython.wraparound(False)
 def cec14(np.ndarray[double, ndim=1, mode="c"] input not None, int func_num):
-  return cec14_test_func_rev(&input[0], input.shape[0], func_num)
+    return cec14_test_func_rev(&input[0], input.shape[0], func_num)
